@@ -17,45 +17,17 @@ values (str): which values from index_column to read from
 
 class ProcessCsv:
 
-    def __init__(self, index_column, file=None, x_axis=None):
+    def __init__(self, index_column, file=None, x_axis=None, separator=None):
         self.index_column = index_column
         self.file = file
         self.x_axis = x_axis
-
-        # self.y_axis = y_axis
-        # self.values = values
-
-    def name(self):
-        pass
+        self.separator = separator
 
     def csv_slicer(self):
         """
-        Returns x and y values
+        Returns
         """
-        sliced_csv = pd.read_csv(self.file, sep=';', index_col=self.index_column)
-        # maybe return only sliced_csv or only dataframe
-        # and process each axis separately own its own class
+        sliced_csv = pd.read_csv(self.file, sep=self.separator, index_col=self.index_column)
         data_frame = pd.DataFrame(sliced_csv)
 
-        # x_values = data_frame.loc[self.values, self.x_axis]
-        # y_values = data_frame.loc[self.values, self.y_axis]
-
         return data_frame
-
-
-# mygraph = ProcessCsv('name', "C:\\Users\\Kamo\\PycharmProjects\\covid_data_visualizer\\data\\test_csv.CSV",
-# 'var_init', 'var_end', 'gol')
-# mygraph_values = mygraph.csv_slicer()
-
-'''
-Steps to be taken for each graph type (as it is - subject to change)
-1 - instantiate processing class with specific x, y values of the desired graph
-2 - untuple x and y into two lists (containing x, and y values)
-3 - call matplotlib to plot
-4 - call matplot again to label
-5 - save matplot result on a file
-
-Still have to decide to just do it raw by just running a single class
-or create specific classes for each graph
-
-'''
