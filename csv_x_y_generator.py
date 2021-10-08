@@ -11,8 +11,12 @@ class Csvgraphs(ProcessCsv):
         self.separator = separator
 
     def generate_x_y(self):
+        # Since our index_column has several values (countries) we use dataframe.loc to
+        # get all values from a specific country
         dataframe = ProcessCsv.csv_slicer(self)
         extract_x = dataframe.loc[self.values, self.x_axis]
         extract_y = dataframe.loc[self.values, self.y_axis]
 
         return extract_x, extract_y
+
+
