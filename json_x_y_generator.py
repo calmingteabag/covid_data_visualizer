@@ -2,7 +2,8 @@ import json
 import urllib.request
 
 """
-This class processes json data from ourworldindata and generates x and y axis
+This class processes json data from ourworldindata and generates lists containing x-values (for dates) and y-values.
+Can be used to generate several y-values, for example, to compare more than one graph.
 """
 
 
@@ -12,10 +13,9 @@ class CovidDataProcess(object):
     This class processes raw data from our world in data.
     '''
 
-    def __init__(self, country, x_axis, y_axis):
+    def __init__(self, country, x_axis):
         self.country = country
-        self.x_axis = x_axis
-        self.y_axis = y_axis
+        self.x_axis = x_axis  # x-axis (dates) will be common among all graphs
 
     def databuild(self):
 
@@ -61,7 +61,7 @@ class CovidDataProcess(object):
 class GraphConstructor(CovidDataProcess):
 
     def __init__(self, country, x_axis, y_axis):
-        super().__init__(country, x_axis, y_axis)
+        super().__init__(country, x_axis)
         self.country = country
         self.x_axis = x_axis
         self.y_axis = y_axis
