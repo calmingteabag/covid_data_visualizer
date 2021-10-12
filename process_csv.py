@@ -21,16 +21,30 @@ case, dates and covid values) and another to select values from a country.
 
 class ProcessCsv:
 
-    def __init__(self, index_column, file=None, x_axis=None, y_axis=None, country=None, separator=None):
+    def __init__(
+            self,
+            index_column,
+            file=None,
+            x_axis=None,
+            y_axis=None,
+            country=None,
+            separator=None,
+            x_axis_spacing=None,
+            plot_title=None,
+            plot_y_label=None
+
+    ):
         self.index_column = index_column
         self.file = file
         self.x_axis = x_axis
         self.y_axis = y_axis
         self.country = country
         self.separator = separator
+        self.x_axis_spacing = x_axis_spacing
+        self.plot_title = plot_title
+        self.plot_y_label = plot_y_label
 
     def __csv_slicer(self):
-
         # returns all data from selected columns
 
         sliced_csv = pd.read_csv(self.file, sep=self.separator, index_col=self.index_column)
@@ -39,19 +53,14 @@ class ProcessCsv:
         return data_frame
 
     def country_csv(self):
-
         # returns dataframe from country
 
         full_dataframe = ProcessCsv.__csv_slicer(self)
-        x_axis = full_dataframe.loc[self.country, self.x_axis]
-        y_axis = full_dataframe.loc[self.country, self.y_axis]
+        new_dataframe = full_dataframe.loc[self.country, [self.x_axis, self.y_axis]]
+        new_dataframe = new_dataframe.set_index(self.x_axis)
 
-        datetime = pd.to_datetime(x_axis)
-        dataf = pd.DataFrame()
-        dataf[''] = y_axis
-        dataf = dataf.set_index(datetime)
+        return new_dataframe
 
-        return dataf
 
 
 
