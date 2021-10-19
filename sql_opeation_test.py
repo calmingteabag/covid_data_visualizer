@@ -1,4 +1,4 @@
-from sql_operator_test import SqlOperator
+from sql_operator import SqlOperator
 
 
 bra = SqlOperator('fucker', 'BRA')
